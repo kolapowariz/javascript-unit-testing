@@ -30,11 +30,11 @@ export function calculateDiscount(price, discountCode) {
 export function validateUserInput(username, age) {
   let errors = [];
 
-  if (typeof username !== 'string' || username.length < 3) {
+  if (typeof username !== 'string' || username.length < 3 || username.length > 256) {
     errors.push('Invalid username');
   }
 
-  if (typeof age !== 'number' || age < 18) {
+  if (typeof age !== 'number' || age < 18 || age > 200) {
     errors.push('Invalid age');
   }
 
@@ -51,6 +51,8 @@ export function isValidUsername(username) {
   const minLength = 5;
   const maxLength = 15;
 
+  if(!username) return false
+
   return username.length >= minLength && username.length <= maxLength;
 }
 
@@ -65,11 +67,15 @@ export function canDrive(age, countryCode) {
     return 'Invalid country code';
   }
 
+  if(typeof age !== 'number') return false
+
   return age >= legalDrivingAge[countryCode];
 }
 
 // Lesson: Testing asynchronous code
 export function fetchData() {
+  // return {reason: 'Operation failed'};
+
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [1, 2, 3];
@@ -123,7 +129,7 @@ export function createProduct(product) {
       error: { code: 'invalid_name', message: 'Name is missing' },
     };
 
-  if (product.price <= 0)
+  if (product.price <= 0 || typeof product.price !== 'number')
     return {
       success: false,
       error: { code: 'invalid_price', message: 'Price is missing' },
