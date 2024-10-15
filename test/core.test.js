@@ -328,9 +328,31 @@ describe('createProduct', () => {
 })
 
 
-// describe('isStrongPassword', () => {
-//   it('should return false if password length < 8', () => {
-//     const result = isStrongPassword('abcd')
-//     expect(result.length).toBe(false);
-//   })
-// })
+describe('isStrongPassword', () => {
+
+  it('should return false if the password length is < 8', () => {
+    const result = isStrongPassword('Oladi8');
+    expect(result).toBe(false)
+  });
+
+  it('should return false if the password does not have at least one uppercase letter', () => {
+    const result = isStrongPassword('oladimeji');
+    expect(result).toBe(false)
+  });
+
+  it('should return false if the password does not have at least one lowercase letter', () => {
+    const result = isStrongPassword('DIMEJIOO');
+    expect(result).toBe(false)
+  });
+
+  it('should return false if the password does not have at least one digit', () => {
+    const result = isStrongPassword('Oladimeji');
+    expect(result).toBe(false)
+  })
+
+
+  it('should return true if all conditions are met', () => {
+    const result = isStrongPassword('Oladimeji4');
+    expect(result).toBe(true)
+  })
+})
